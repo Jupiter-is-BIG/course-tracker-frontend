@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from 'crypto-js';
 
 function App() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `https://course-tracker-backend.onrender.com/user/login?user_name=${userData.username}&password=${userData.password}`
+        `/user/login?user_name=${userData.username}&password=${CryptoJS.SHA256(userData.password).toString(CryptoJS.enc.Hex)}`
       );
       console.log(response.status);
       if (response.status === 200) {

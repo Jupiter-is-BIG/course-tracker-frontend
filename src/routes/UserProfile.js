@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import '../index.css'
 import CourseRequest from '../components/CourseRequest';
 import AddRequest from '../components/AddRequest';
+import CryptoJS from 'crypto-js';
 
 function UserProfile() {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ function UserProfile() {
         const user = JSON.parse(localStorage.getItem("cookies"));
         if (!user) navigate("/");
         try {
-            const response = await fetch(`https://course-tracker-backend.onrender.com/user/subscriptions?user_name=${user["username"]}&password=${user["password"]}`);
+            const response = await fetch(`/user/subscriptions?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}`);
             if (response.status === 200) {
                 const jsonData = await response.json();
                 setCourseRequest(jsonData);
@@ -76,7 +77,7 @@ function UserProfile() {
             </div>
             : <div className='flex justify-center items-center w-full'>
                 <div className='grid grid-cols-2 gap-4 w-[70%]'>
-                {courseRequest.map((e) => <CourseRequest subject={e.subject} code={e.code} section={e.section} campus={e.campus} active={e.is_active} exe={loadData} />)}
+                {courseRequest.map((e) => <CourseRequest subject={e.subject} code={e.code} section={e.section} campus={e.campus} active={e.is_active} exe={loadData} requestId = {e.request_id}/>)}
                 </div>
                 </div>}</p>
             {courseRequest == null ? <></> : <div className='flex justify-center items-center mt-10'>

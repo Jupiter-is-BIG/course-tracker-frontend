@@ -1,3 +1,5 @@
+import CryptoJS from 'crypto-js';
+
 function CourseRequest(props) {
     var col = props.active ? "shadow-green-400" : "shadow-red-400";
     var beep = props.active ? "bg-green-500  shadow-green-400" : "bg-red-500 shadow-red-400";
@@ -8,7 +10,7 @@ function CourseRequest(props) {
         if (props.active) return;
         const user = JSON.parse(localStorage.getItem("cookies"));
         try {
-            const response = await fetch(`https://course-tracker-backend.onrender.com/request?user_name=${user["username"]}&password=${user["password"]}&subject=${props.subject}&code=${props.code}&section=${props.section}&campus=${props.campus}`, { method: "POST" });
+            const response = await fetch(`/request?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}&subject=${props.subject}&code=${props.code}&section=${props.section}&campus=${props.campus}`, { method: "POST" });
             if (response.status === 201) {
                 props.exe();
             } else {
@@ -19,8 +21,23 @@ function CourseRequest(props) {
         }
 
     }
-    return <div className={classNameMain} onClick={updateData}>
 
+    const removeRequest = async () => {
+        const user = JSON.parse(localStorage.getItem("cookies"));
+        try {
+            const response = await fetch(`/usersubscriptions?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}&request_id=${props.requestId}`, { method: "DELETE" });
+            if (response.status === 200) {
+                props.exe();
+            } else {
+                console.error('Server responded with an error:', response.status);
+            }
+        } catch (error) {
+            console.error('There was a network error!', error);
+        }
+    }
+
+    return <div className='relative'>
+        <div className={classNameMain} onClick={updateData}>
         <div>
             {props.subject} {props.code} {props.section}
 
@@ -30,8 +47,15 @@ function CourseRequest(props) {
             <div className="text-sm font-ele">{props.active ? "Active" : "Fused"}</div>
             <div>{props.campus}</div>
         </div>
-
-    </div>;
+    </div>
+    <button
+        className="absolute top-0 right-[-2%] text-sm rounded-full bg-red-600 w-8 h-8 flex justify-center items-center text-center "
+            onClick={removeRequest}
+          >
+           <div>x</div>
+            
+          </button>
+        </div>;
 }
 
 export default CourseRequest;

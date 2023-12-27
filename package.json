@@ -9,6 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
@@ -41,5 +42,6 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.0"
-  }
+  },
+  "proxy": "https://course-tracker-backend.onrender.com"
 }
