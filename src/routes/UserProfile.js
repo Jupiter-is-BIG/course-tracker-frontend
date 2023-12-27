@@ -13,7 +13,7 @@ function UserProfile() {
         const user = JSON.parse(localStorage.getItem("cookies"));
         if (!user) navigate("/");
         try {
-            const response = await fetch(`/user/subscriptions?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}`);
+            const response = await fetch(`https://course-tracker-backend.onrender.com/user/subscriptions?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}`);
             if (response.status === 200) {
                 const jsonData = await response.json();
                 setCourseRequest(jsonData);

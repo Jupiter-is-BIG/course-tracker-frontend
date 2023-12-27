@@ -29,7 +29,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `/user/login?user_name=${userData.username}&password=${CryptoJS.SHA256(userData.password).toString(CryptoJS.enc.Hex)}`
+        `https://course-tracker-backend.onrender.com/user/login?user_name=${userData.username}&password=${CryptoJS.SHA256(userData.password).toString(CryptoJS.enc.Hex)}`
       );
       console.log(response.status);
       if (response.status === 200) {

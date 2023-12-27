@@ -10,7 +10,7 @@ function CourseRequest(props) {
         if (props.active) return;
         const user = JSON.parse(localStorage.getItem("cookies"));
         try {
-            const response = await fetch(`/request?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}&subject=${props.subject}&code=${props.code}&section=${props.section}&campus=${props.campus}`, { method: "POST" });
+            const response = await fetch(`https://course-tracker-backend.onrender.com/request?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}&subject=${props.subject}&code=${props.code}&section=${props.section}&campus=${props.campus}`, { method: "POST" });
             if (response.status === 201) {
                 props.exe();
             } else {
@@ -25,7 +25,7 @@ function CourseRequest(props) {
     const removeRequest = async () => {
         const user = JSON.parse(localStorage.getItem("cookies"));
         try {
-            const response = await fetch(`/usersubscriptions?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}&request_id=${props.requestId}`, { method: "DELETE" });
+            const response = await fetch(`https://course-tracker-backend.onrender.com/usersubscriptions?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}&request_id=${props.requestId}`, { method: "DELETE" });
             if (response.status === 200) {
                 props.exe();
             } else {

@@ -23,7 +23,7 @@ function SignUp() {
 
     try {
       const response = await fetch(
-        `/user?user_id=${discord}&user_name=${username}&password=${CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)}`, { method: "POST" }
+        `https://course-tracker-backend.onrender.com/user?user_id=${discord}&user_name=${username}&password=${CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)}`, { method: "POST" }
       );
 
       console.log(response.status);
