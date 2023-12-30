@@ -105,6 +105,11 @@ function App() {
           </div>
         </div>
       )}
+      <div className="absolute top-0 right-0 m-5 flex flex-row space-x-3">
+      <a className="hover:shadow-xl opacity-70 hover:opacity-100 transition duration-200" href="https://github.com/Jupiter-is-BIG"><img src="https://static-00.iconduck.com/assets.00/github-icon-2048x1988-jzvzcf2t.png" alt="Buy Me A Coffee" className="h-10 w-10"/></a>
+
+      <a className="hover:shadow-xl opacity-70 hover:opacity-100 transition duration-200" href="https://www.buymeacoffee.com/jupiterisbig"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" className="h-10 w-40"/></a>
+      </div>
     </div>
   );
 }
