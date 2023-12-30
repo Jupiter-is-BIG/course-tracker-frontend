@@ -98,7 +98,7 @@ function UserProfile() {
             <AddRequest amount={courseRequest.length} exe={loadData}/>
             </div>
             }
-
+<div className='absolute bottom-0 m-4 w-full text-center text-gray-300'><p className='text-green-400 inline'>Active</p> means we are still tracking the availability of the course/lab. <p className='text-red-400 inline'>Fused</p> means we are no longer tracking this course/lab. To <p className='text-green-400 inline'>re-activate</p> a <p className='text-red-400 inline'>fused</p> course, simply click on it.</div>
 {snackbarVisible && (
         <div className="fixed bottom-0 right-0 p-4">
           <div className="bg-red-500 text-white p-2 rounded shadow-md">
