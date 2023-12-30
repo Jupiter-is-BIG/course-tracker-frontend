@@ -14,7 +14,6 @@ function AddRequest(props) {
     const addRequest = async (e) => {
         e.preventDefault();
         if (props.amount >= 4 || subject == null || code == null || section == null || campus == null || subject.length !== 4 || code.length !== 3 || section.length !== 3 || campus.length !== 4) return;
-        console.log(subject)
 
         const user = JSON.parse(localStorage.getItem("cookies"));
         try {

@@ -42,6 +42,8 @@ function App() {
       }
     } catch (error) {
       console.error("There was a network error!", error);
+      setSnackbarMessage("There was a network error! Please try back again in a while. If this continues, please report.");
+      setSnackbarVisible(true);
     }
 
     setUsername("");
@@ -59,7 +61,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-row items-center justify-around bg-black bg-gradient-to-br from-black to-white">
+    <div className="min-h-screen flex flex-row items-center justify-around bg-black bg-gradient-to-br from-black to-discord">
       <h1 className="text-5xl text-white font-ele font-semibold text-center p-10">
         Course Tracker 🔭
       </h1>

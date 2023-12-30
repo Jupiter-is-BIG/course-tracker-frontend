@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'discord': '#5865F2',
+      },
       fontFamily: {
         'ele': ['Raleway', 'sans-serif']
       },

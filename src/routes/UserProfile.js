@@ -8,6 +8,8 @@ import CryptoJS from 'crypto-js';
 function UserProfile() {
     const navigate = useNavigate();
     const [courseRequest, setCourseRequest] = useState();
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const [snackbarVisible, setSnackbarVisible] = useState(false);
 
     const loadData = async () => {
         const user = JSON.parse(localStorage.getItem("cookies"));
@@ -18,11 +20,23 @@ function UserProfile() {
                 const jsonData = await response.json();
                 setCourseRequest(jsonData);
                 console.log(jsonData)
+            } else if (response.status === 401) {
+                setSnackbarMessage("Wrong username or password combination");
+                setSnackbarVisible(true);
+            } else if (response.status === 403) {
+                setSnackbarMessage("Can't track more than 4 courses at once!");
+                setSnackbarVisible(true);
+            } else if (response.status === 406) {
+                setSnackbarMessage("Invalid Course. Please confirm the course creds again.");
+                setSnackbarVisible(true);
             } else {
                 console.error('Server responded with an error:', response.status);
+                setSnackbarMessage("Server responded with an error. Please try back again in a while. If this continues, please report.");
+                setSnackbarVisible(true);
             }
         } catch (error) {
-            console.error('There was a network error!', error);
+            setSnackbarMessage("There was a network error! Please try back again in a while. If this continues, please report.");
+            setSnackbarVisible(true);
         }
     };
 
@@ -84,6 +98,17 @@ function UserProfile() {
             <AddRequest amount={courseRequest.length} exe={loadData}/>
             </div>
             }
+
+{snackbarVisible && (
+        <div className="fixed bottom-0 right-0 p-4">
+          <div className="bg-red-500 text-white p-2 rounded shadow-md">
+            {snackbarMessage}
+            <button className="ml-2" onClick={() => {setSnackbarVisible(false)}}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
 }
 
