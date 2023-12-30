@@ -7,6 +7,8 @@ function AddRequest(props) {
     const [code, setCode] = useState("");
     const [section, setSection] = useState("");
     const [campus, setCampus] = useState("");
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const [snackbarVisible, setSnackbarVisible] = useState(false);
     
     var col =  "shadow-cyan-400";
 
@@ -20,11 +22,23 @@ function AddRequest(props) {
             const response = await fetch(`https://course-tracker-backend.onrender.com/request?user_name=${user["username"]}&password=${CryptoJS.SHA256(user["password"]).toString(CryptoJS.enc.Hex)}&subject=${subject}&code=${code}&section=${section}&campus=${campus}`, { method: "POST" });
             if (response.status === 201) {
                 props.exe();
+            } else if (response.status === 401) {
+                setSnackbarMessage("Wrong username or password combination");
+                setSnackbarVisible(true);
+            } else if (response.status === 403) {
+                setSnackbarMessage("Can't track more than 4 courses at once!");
+                setSnackbarVisible(true);
+            } else if (response.status === 406) {
+                setSnackbarMessage("Invalid Course. Please confirm the course creds again.");
+                setSnackbarVisible(true);
             } else {
                 console.error('Server responded with an error:', response.status);
+                setSnackbarMessage("Server responded with an error. Please try back again in a while. If this continues, please report.");
+                setSnackbarVisible(true);
             }
         } catch (error) {
-            console.error('There was a network error!', error);
+            setSnackbarMessage("There was a network error! Please try back again in a while. If this continues, please report.");
+            setSnackbarVisible(true);
         }
 
         setSubject("");
