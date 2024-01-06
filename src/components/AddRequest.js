@@ -14,7 +14,16 @@ function AddRequest(props) {
   var classNameMain = `hover: border-white w-[70%] h-32 rounded-md border bg-black flex flex-row items-center p-5 text-2xl opacity-80 shadow-lg hover:opacity-100 transition duration-300 my-5 ${col} justify-between`;
   const addRequest = async (e) => {
     e.preventDefault();
-    if (subject == null || code == null || section == null || campus == null) {
+    if (
+      subject == null ||
+      code == null ||
+      section == null ||
+      campus == null ||
+      subject === "" ||
+      code === "" ||
+      section === "" ||
+      campus === ""
+    ) {
       setSnackbarMessage("Please fill all the fields in the add form.");
       setSnackbarVisible(true);
       return;
