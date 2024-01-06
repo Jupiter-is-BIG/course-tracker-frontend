@@ -155,8 +155,8 @@ function AddRequest(props) {
         </button>
       </div>
       {snackbarVisible && (
-        <div className="fixed bottom-0 right-0 p-4">
-          <div className="bg-red-500 text-white p-2 rounded shadow-md">
+        <div className="fixed top-0 right-0 p-4">
+          <div className="bg-red-500 text-sm text-white p-2 rounded shadow-md">
             {snackbarMessage}
             <button
               className="ml-2"
@@ -164,7 +164,7 @@ function AddRequest(props) {
                 setSnackbarVisible(false);
               }}
             >
-              Close
+              ⤫
             </button>
           </div>
         </div>
@@ -174,4 +174,3 @@ function AddRequest(props) {
 }
 
 export default AddRequest;
-
